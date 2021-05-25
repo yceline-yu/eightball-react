@@ -1,3 +1,6 @@
+.EightBall {
+    text-align: center;
+}
 .EightBall-msg {
     color:white;
     margin-top: 200px;
@@ -12,4 +15,12 @@
     height: 500px;
     width: 500px;
     border-radius: 50%;
+}
+
+.EightBall-reset {
+    border: none;
+    border-radius: 15%;
+    background-color: red;
+    padding: 2em;
+    color: white;
 }

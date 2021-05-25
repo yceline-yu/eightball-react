@@ -14,24 +14,54 @@ import _ from "lodash";
  *  
  */
 
-
 function EightBall(props){
-  const [answer, setAnswer] = useState({msg:"Think of a question.", color:"black"});
   const { answers } = props;
+  // make set from possible colors so it can handle different colors
+  const defaultAnswer = {msg:"Think of a question.", color:"black"};
+
+  const [answer, setAnswer] = useState(defaultAnswer);
+  const [redCount, setRedCount] = useState(0);
+  const [yellowCount, setYellowCount] = useState(0);
+  const [greenCount, setGreenCount] = useState(0);
+  
 
   function handleClick(){
     let randomAnswer = _.sample(answers);
+    let updatedRedCount = randomAnswer.color === "red" ? redCount + 1 : redCount;
+    let updatedYellowCount = randomAnswer.color === "goldenrod" ? yellowCount + 1 : yellowCount;
+    let updatedGreenCount = randomAnswer.color === "green" ? greenCount + 1 : greenCount;
+    setRedCount(updatedRedCount);
+    setYellowCount(updatedYellowCount);
+    setGreenCount(updatedGreenCount);
     setAnswer(randomAnswer);
-  }
+  };
 
+  function handleReset(){
+    setAnswer(defaultAnswer);
+    setRedCount(0);
+    setYellowCount(0);
+    setGreenCount(0);
+  };
+
+  //name top level <div> same name as component
   return (
-  <div className="EightBall-ball" style={{backgroundColor: answer.color}}
-  onClick={handleClick}>
-    <p className="EightBall-msg">{answer.msg}</p>
+  <div className="EightBall">
+    <div className="EightBall-ball" style={{backgroundColor: answer.color}}
+    onClick={handleClick}>
+      <p className="EightBall-msg">{answer.msg}</p>
+    </div>
+    <div>
+      <p>Red Count: {redCount}</p>
+      <p>Yellow Count: {yellowCount}</p>
+      <p>Green Count: {greenCount}</p>
+    </div>
+    <div>
+      <button className="EightBall-reset" onClick={handleReset}>Reset</button>
+    </div>
   </div>
   );
 
-}
+};
 
 EightBall.defaultProps = {answers:[
   { msg: "It is certain.", color: "green" },
